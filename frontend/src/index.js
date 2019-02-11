@@ -20,5 +20,5 @@ function renderAllEvents() {
 }
 
 function renderEvent(event) {
-    
+
 }
