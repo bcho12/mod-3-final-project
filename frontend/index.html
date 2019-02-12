@@ -3,27 +3,36 @@
 <html>
   <head>
     <title>getEvents</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <link rel="stylesheet" href="./index.css" />
   </head>
 
   <body style='background-color:white'>
     <div id="left-container">
         <div id="profile-container">
-            <h2>Profile</h2>
+            <h4>Profile</h4>
                 <div id="profile"></div>
         </div>
 
         <div id="users-events-container">
-            <h2 id="users-events">Your Events</h2>
+            <h4 id="users-events">Your Events</h4>
         </div>
     </div>
 
     <div id="right-container">
-        <h2>All Events</h2>
-        <div id="events-container"></div>
+        <h3>All Events</h3>
+        <div class="row">
+           <div id="card-container" class="col s12 m6">
+               <!-- <div id="events-container" class="card"></div> -->
+           </div>
+       </div
     </div>
 
 
     <script src="src/index.js"></script>
+    <script type="text/javascript"></script>
   </body>
 </html>

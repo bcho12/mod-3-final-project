@@ -45,35 +45,42 @@ function renderAllEvents() {
 }
 
 function renderEvent(event) {
-    // console.log(event)
-    const eventContainer = document.querySelector('#events-container')
+    const cardContainer = document.querySelector('#card-container')
+
+    const card = document.createElement('div')
+    card.className = 'card'
+    cardContainer.appendChild(card)
+
+    const imgContainer = document.createElement('div')
+    imgContainer.className = 'card-image'
+    card.appendChild(imgContainer)
 
     for (let i = 0; i < event.images.length; i++) {
         const eventImg = document.createElement('img')
-        eventImg.className = 'event-image'
         eventImg.src = event.images[0].url
-        eventContainer.appendChild(eventImg)
+        imgContainer.appendChild(eventImg)
         break
     }
 
     const name = document.createElement('h4')
     name.textContent = event.name
-    eventContainer.appendChild(name)
+    name.className = 'card-content'
+    card.appendChild(name)
 
     const date = document.createElement('p')
     date.textContent = event.dates.start.localDate
-    eventContainer.appendChild(date)
+    card.appendChild(date)
 
     const time = document.createElement('p')
     time.textContent = event.dates.start.localTime
-    eventContainer.appendChild(time)
+    card.appendChild(time)
 
     const price = document.createElement('p')
     if ("priceRanges" in event) {
 
         price.textContent =  `Average Price: $${(event.priceRanges[0].max + event.priceRanges[0].min) / 2}`
     }
-    eventContainer.appendChild(price)
+    card.appendChild(price)
 }
 
 // USERS

@@ -1,12 +1,22 @@
 body {
 	display: grid;
-	grid-template-columns: 3fr 7fr
+	grid-template-columns: 2fr 8fr
 }
 
 .user-image {
 	height: 80px;
 }
 
-.event-image {
-	height: 200px
+/* .event-image {
+	height: 150px
+} */
+
+.card-image {
+	height: auto;
+	width: auto;
+}
+
+
+#right-container {
+
 }
