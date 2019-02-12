@@ -19,7 +19,6 @@ function renderAllEvents() {
     getEvents().then(function(data){
         // data._embedded.events.forEach(renderEvent)
         // let array = []
-
         data._embedded.events.forEach(renderEvent)
 
 
@@ -46,7 +45,7 @@ function renderAllEvents() {
 }
 
 function renderEvent(event) {
-    console.log(event)
+    // console.log(event)
     const eventContainer = document.querySelector('#events-container')
 
     for (let i = 0; i < event.images.length; i++) {
@@ -61,15 +60,20 @@ function renderEvent(event) {
     name.textContent = event.name
     eventContainer.appendChild(name)
 
-    const description = document.createElement('p')
+    const date = document.createElement('p')
+    date.textContent = event.dates.start.localDate
+    eventContainer.appendChild(date)
 
+    const time = document.createElement('p')
+    time.textContent = event.dates.start.localTime
+    eventContainer.appendChild(time)
 
-    
+    const price = document.createElement('p')
+    if ("priceRanges" in event) {
 
-
-
-
-    // description.textContent =
+        price.textContent =  `Average Price: $${(event.priceRanges[0].max + event.priceRanges[0].min) / 2}`
+    }
+    eventContainer.appendChild(price)
 }
 
 // USERS
