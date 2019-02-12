@@ -81,6 +81,32 @@ function renderEvent(event) {
         price.textContent =  `Average Price: $${(event.priceRanges[0].max + event.priceRanges[0].min) / 2}`
     }
     card.appendChild(price)
+
+    const button = document.createElement('button')
+    button.textContent = 'Add Event'
+    card.appendChild(button)
+    button.addEventListener('click', () => changeCart(event))
+}
+
+function changeCart(event) {
+    console.log(event)
+    const userEvents = document.querySelector('#users-events')
+
+    const card = document.createElement('div')
+    card.className = 'card'
+    userEvents.appendChild(card)
+
+    const cardName = document.createElement('h5')
+    cardName.textContent = event.name
+    card.appendChild(cardName)
+
+    const cardDate = document.createElement('p')
+    cardDate.textContent = event.dates.start.localDate
+    card.appendChild(cardDate)
+
+    const cardTime = document.createElement('p')
+    cardTime.textContent = event.dates.start.localTime
+    card.appendChild(cardTime)
 }
 
 // USERS
