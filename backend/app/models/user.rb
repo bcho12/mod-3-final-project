@@ -7,7 +7,7 @@ class User < ApplicationRecord
             age: self.age,
             city: self.city,
             image: self.image
-            events: self.events
+            # events: self.events
         }.to_json
     end
 end

@@ -2,3 +2,11 @@ body {
 	display: grid;
 	grid-template-columns: 3fr 7fr
 }
+
+.user-image {
+	height: 80px;
+}
+
+.event-image {
+	height: 200px
+}
