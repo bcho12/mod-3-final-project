@@ -15,14 +15,15 @@ body {
 	height: auto;
 	width: auto;
 }
-/* 
-.card {
+/*
+/* .card {
 	height: 400px;
-	width: 150px;
-} */
+	width: 200px;
+	overflow: auto;
+} */ */
 
-/* #card-container {
+#row {
 	display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-} */
+}

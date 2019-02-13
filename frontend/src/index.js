@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', setupPage)
 
 const API_KEY = 'IKgwsAelLVBNG87AByQ0OVTLmgysLNAo'
-const EVENT_URL = `https://app.ticketmaster.com/discovery/v2/events.json?stateCode=GA&apikey=${API_KEY}`
+let state = 'GA'
+const EVENT_URL = `https://app.ticketmaster.com/discovery/v2/events.json?stateCode=${state}&apikey=${API_KEY}`
 
 const USER_URL = 'http://localhost:3000'
 
@@ -111,7 +112,7 @@ function changeCart(event) {
     deleteBtn.textContent = 'Delete'
     card.appendChild(deleteBtn)
 
-    updateUserEvents()
+    // updateUserEvents()
 
     deleteBtn.addEventListener('click', () => removeEvent(event))
 }
