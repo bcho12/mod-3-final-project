@@ -16,7 +16,13 @@ body {
 	width: auto;
 }
 
+.card {
+	height: 400px;
+	width: 150px;
+}
 
-#right-container {
-
+#card-container {
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
