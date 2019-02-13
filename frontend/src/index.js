@@ -195,14 +195,14 @@ function renderUser(user) {
     userProfile.appendChild(image)
 
     const username = document.createElement('p')
-    username.textContent = user.username
+    username.textContent = "Username: " + user.username
     userProfile.appendChild(username)
 
     const age = document.createElement('p')
-    age.textContent = user.age
+    age.textContent = "Age: " + user.age
     userProfile.appendChild(age)
 
     const city = document.createElement('p')
-    city.textContent = user.city
+    city.textContent = "City: " + user.city
     userProfile.appendChild(city)
 }

@@ -3,13 +3,27 @@ body {
 	grid-template-columns: 2fr 8fr
 }
 
+#right-container {
+	background-color: #fedcd2;
+}
+
+#left-container {
+	background-color: #caebf2;
+}
+
+#all-events {
+	font-family: serif;
+	font-size: 50px;
+}
+
 .user-image {
 	height: 80px;
 }
 
-#cart-card {
+#cart-card.card {
 	height: 100px;
 	text-align: center;
+	left: 10px
 }
 
 .card {
