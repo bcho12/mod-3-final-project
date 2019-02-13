@@ -77,28 +77,38 @@ function renderEvent(event) {
     const name = document.createElement('h5')
     name.textContent = event.name
     name.className = 'card-text'
+    name.id = 'name'
     cardBody.appendChild(name)
 
     const venue = document.createElement('p')
-    venue.textContent = `Venue: ${event._embedded.venues[0].name}`
+    venue.textContent = event._embedded.venues[0].name
     venue.className = 'card-text'
+    venue.id = 'venue'
     cardBody.appendChild(venue)
 
     const city = document.createElement('p')
-    city.textContent = `City: ${event._embedded.venues[0].city.name}`
+    city.textContent = event._embedded.venues[0].city.name
     city.className = 'card-text'
+    city.id = 'city'
     cardBody.appendChild(city)
 
-    const dateAndTime = document.createElement('p')
-    dateAndTime.textContent = `${event.dates.start.localDate} at ${event.dates.start.localTime}`
-    dateAndTime.className = 'card-text'
-    cardBody.appendChild(dateAndTime)
+    const date = document.createElement('p')
+    date.textContent = event.dates.start.localDate
+    date.className = 'card-text'
+    date.id = 'date'
+    cardBody.appendChild(date)
+
+    const time = document.createElement('p')
+    time.textContent = event.dates.start.localTime
+    time.className = 'card-text'
+    time.id = 'time'
+    cardBody.appendChild(time)
 
     const price = document.createElement('p')
     if ("priceRanges" in event) {
-
-        price.textContent =  `Price: $${(event.priceRanges[0].max + event.priceRanges[0].min) / 2}`
+        price.textContent =  (event.priceRanges[0].max + event.priceRanges[0].min) / 2
     }
+    price.id = 'price'
     cardBody.appendChild(price)
 
     // button with event listener
@@ -110,7 +120,7 @@ function renderEvent(event) {
 }
 
 // adding event to cart
-function changeCart(event) {
+function changeCart(ourEvent) {
     const userEvents = document.querySelector('#users-events')
 
     const card = document.createElement('div')
@@ -119,16 +129,40 @@ function changeCart(event) {
     userEvents.appendChild(card)
 
     const cardName = document.createElement('h5')
-    cardName.textContent = event.name
+    cardName.textContent = ourEvent.name
     card.appendChild(cardName)
 
     const deleteBtn = document.createElement('button')
     deleteBtn.textContent = 'Delete'
     card.appendChild(deleteBtn)
 
-    // updateUserEvents()
 
-    deleteBtn.addEventListener('click', () => removeEvent(event))
+
+    let name = event.target.parentElement.querySelector('#name').textContent
+    let url = event.target.parentElement.parentElement.querySelector('img').src
+    let date = event.target.parentElement.querySelector('#date').textContent
+    let time = event.target.parentElement.querySelector('#time').textContent
+    let price = event.target.parentElement.querySelector('#price').textContent
+    let city = event.target.parentElement.querySelector('#city').textContent
+    let venue = event.target.parentElement.querySelector('#venue').textContent
+    let user_id = 5
+
+    let eventParams = { name: name, url: url, date: date, time: time, price: price, city: city, venue: venue, user_id: user_id }
+
+    updateUserEvents(eventParams).then(data => console.log(data))
+
+    deleteBtn.addEventListener('click', () => removeEvent(ourEvent))
+}
+
+const updateUserEvents = (eventParams)  => {
+    console.log(eventParams)
+    return fetch(`${USER_URL}/events`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventParams)
+    }).then(res => res.json())
 }
 
 // remove event from user - HTML side
