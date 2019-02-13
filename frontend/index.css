@@ -7,23 +7,20 @@ body {
 	height: 80px;
 }
 
-/* .event-image {
-	height: 150px
-} */
-
-.card-image {
-	height: auto;
-	width: auto;
+#cart-card {
+	height: 100px;
+	text-align: center;
 }
-/*
-/* .card {
-	height: 400px;
+
+.card {
+	height: 550px;
 	width: 200px;
 	overflow: auto;
-} */ */
+	float: left;
+	margin: 20px;
+}
 
-#row {
-	display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
+#all-events, #profile-title, #users-events, #events-title, .user-profile {
+	text-align: center;
 }

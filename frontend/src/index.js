@@ -46,61 +46,75 @@ function renderAllEvents() {
 }
 
 function renderEvent(event) {
+    // parent element of all cards
     const cardContainer = document.querySelector('#card-container')
 
+    // create card
     const card = document.createElement('div')
     card.className = 'card'
+    card.style = 'width: 18rem'
     cardContainer.appendChild(card)
 
+    // create image container to attach image
     const imgContainer = document.createElement('div')
-    imgContainer.className = 'card-image'
     card.appendChild(imgContainer)
 
+    // for loop to get first image from API
     for (let i = 0; i < event.images.length; i++) {
         const eventImg = document.createElement('img')
         eventImg.src = event.images[0].url
+        eventImg.className = 'card-img-top'
         imgContainer.appendChild(eventImg)
         break
     }
 
-    const name = document.createElement('h4')
+    // card body container
+    const cardBody = document.createElement('div')
+    cardBody.className = 'card-body'
+    card.appendChild(cardBody)
+
+    // event information -- appending to card body
+    const name = document.createElement('h5')
     name.textContent = event.name
-    name.className = 'card-content'
-    card.appendChild(name)
+    name.className = 'card-text'
+    cardBody.appendChild(name)
 
     const venue = document.createElement('p')
-    venue.textContent = event._embedded.venues[0].name
-    card.appendChild(venue)
+    venue.textContent = `Venue: ${event._embedded.venues[0].name}`
+    venue.className = 'card-text'
+    cardBody.appendChild(venue)
 
     const city = document.createElement('p')
-    city.textContent = event._embedded.venues[0].city.name
-    card.appendChild(city)
+    city.textContent = `City: ${event._embedded.venues[0].city.name}`
+    city.className = 'card-text'
+    cardBody.appendChild(city)
 
-    const date = document.createElement('p')
-    date.textContent = event.dates.start.localDate
-    card.appendChild(date)
-
-    const time = document.createElement('p')
-    time.textContent = event.dates.start.localTime
-    card.appendChild(time)
+    const dateAndTime = document.createElement('p')
+    dateAndTime.textContent = `${event.dates.start.localDate} at ${event.dates.start.localTime}`
+    dateAndTime.className = 'card-text'
+    cardBody.appendChild(dateAndTime)
 
     const price = document.createElement('p')
     if ("priceRanges" in event) {
 
-        price.textContent =  `Average Price: $${(event.priceRanges[0].max + event.priceRanges[0].min) / 2}`
+        price.textContent =  `Price: $${(event.priceRanges[0].max + event.priceRanges[0].min) / 2}`
     }
-    card.appendChild(price)
+    cardBody.appendChild(price)
 
+    // button with event listener
     const button = document.createElement('button')
     button.textContent = 'Add Event'
+    button.className = "btn btn-primary"
     card.appendChild(button)
     button.addEventListener('click', () => changeCart(event))
 }
 
+// adding event to cart
 function changeCart(event) {
     const userEvents = document.querySelector('#users-events')
 
     const card = document.createElement('div')
+    card.id = 'cart-card'
     card.className = 'card'
     userEvents.appendChild(card)
 
@@ -117,11 +131,13 @@ function changeCart(event) {
     deleteBtn.addEventListener('click', () => removeEvent(event))
 }
 
+// remove event from user - HTML side
 function removeEvent(ourEvent) {
     let byeEvent = event.target.parentElement
     byeEvent.parentElement.removeChild(byeEvent)
     let id = ourEvent.id
 }
+
 
 // USERS
 function getUsers() {
@@ -134,8 +150,10 @@ function renderAllUsers() {
     })
 }
 
+//
 function renderUser(user) {
     const userProfile = document.querySelector('#profile')
+    userProfile.className = 'user-profile'
 
     const image = document.createElement('img')
     image.src = user.image
