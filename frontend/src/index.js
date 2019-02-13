@@ -67,6 +67,14 @@ function renderEvent(event) {
     name.className = 'card-content'
     card.appendChild(name)
 
+    const venue = document.createElement('p')
+    venue.textContent = event._embedded.venues[0].name
+    card.appendChild(venue)
+
+    const city = document.createElement('p')
+    city.textContent = event._embedded.venues[0].city.name
+    card.appendChild(city)
+
     const date = document.createElement('p')
     date.textContent = event.dates.start.localDate
     card.appendChild(date)
@@ -89,7 +97,6 @@ function renderEvent(event) {
 }
 
 function changeCart(event) {
-    console.log(event)
     const userEvents = document.querySelector('#users-events')
 
     const card = document.createElement('div')
@@ -100,13 +107,19 @@ function changeCart(event) {
     cardName.textContent = event.name
     card.appendChild(cardName)
 
-    const cardDate = document.createElement('p')
-    cardDate.textContent = event.dates.start.localDate
-    card.appendChild(cardDate)
+    const deleteBtn = document.createElement('button')
+    deleteBtn.textContent = 'Delete'
+    card.appendChild(deleteBtn)
 
-    const cardTime = document.createElement('p')
-    cardTime.textContent = event.dates.start.localTime
-    card.appendChild(cardTime)
+    updateUserEvents()
+
+    deleteBtn.addEventListener('click', () => removeEvent(event))
+}
+
+function removeEvent(ourEvent) {
+    let byeEvent = event.target.parentElement
+    byeEvent.parentElement.removeChild(byeEvent)
+    let id = ourEvent.id
 }
 
 // USERS
@@ -132,7 +145,6 @@ function renderUser(user) {
     username.textContent = user.username
     userProfile.appendChild(username)
 
-
     const age = document.createElement('p')
     age.textContent = user.age
     userProfile.appendChild(age)
@@ -140,6 +152,4 @@ function renderUser(user) {
     const city = document.createElement('p')
     city.textContent = user.city
     userProfile.appendChild(city)
-
-    // add events to each user
 }
