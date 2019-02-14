@@ -12,15 +12,50 @@ function setupPage() {
     renderAllUserEvents()
 }
 
+
+function renderDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function getVenueNames(venueNames) {
+    let dropdown = document.querySelector('.dropdown-content')
+
+    let uniqueNames = venueNames.filter((v, i, a) => a.indexOf(v) === i)
+    uniqueNames.forEach(function(name){
+        let venueName = document.createElement('a')
+        venueName.textContent = name
+        dropdown.appendChild(venueName)
+    })
+}
+
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
 // EVENTS
 function getEvents() {
   return fetch(`${EVENT_URL}`).then(res => res.json())
 }
 
-
 function renderAllEvents() {
+    let venueNames = []
     getEvents().then(function(data){
-        data._embedded.events.forEach(renderEvent)
+        data._embedded.events.forEach((event) => {
+            renderEvent(event)
+            venueNames.push(event._embedded.venues[0].name)
+        })
+        getVenueNames(venueNames)
     })
 }
 
@@ -147,7 +182,6 @@ const updateUserEvents = (eventParams)  => {
         This allows you to get this id later, so it can be used in
         your delete function (and corresponding rails route!) */
         let event_id = res.id
-        console.log(res)
         let cartCard = document.querySelector('#cart-card')
         cartCard.dataset.id = event_id
     })
