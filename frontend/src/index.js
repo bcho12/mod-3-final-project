@@ -9,6 +9,7 @@ const LOCAL_URL = 'http://localhost:3000'
 function setupPage() {
     renderAllEvents()
     renderAllUsers()
+    renderAllUserEvents()
 }
 
 // EVENTS
@@ -17,33 +18,9 @@ function getEvents() {
 }
 
 
-
 function renderAllEvents() {
     getEvents().then(function(data){
-        // data._embedded.events.forEach(renderEvent)
-        // let array = []
         data._embedded.events.forEach(renderEvent)
-
-
-            // array.push(event.name)
-            // if (array.length = 0) {
-            //     array.push(event)
-            // } else if (array.name !== event.name) {
-            //     debugger
-            //     array.push(event)
-            // }
-
-        // let unique = array.filter((v, i, a) => a.indexOf(v) === i);
-        //
-        // let array2 = []
-        // for (let x = 0; x < unique.length; x++) {
-        //     data._embedded.events.forEach(function(event) {
-        //         if (event.name !== unique[x]) {
-        //             array2.push(event)
-        //         }
-        //     })
-        // }
-        // console.log(array2.)
     })
 }
 
@@ -227,4 +204,45 @@ function renderUser(user) {
     const city = document.createElement('p')
     city.textContent = "City: " + user.city
     userProfile.appendChild(city)
+}
+
+
+
+
+// USER EVENTS
+function getUserEvents() {
+    return fetch(`${LOCAL_URL}/events`).then(res => res.json())
+}
+
+function renderAllUserEvents() {
+    getUserEvents().then(function(data){
+        data.forEach(renderUserEvent)
+    })
+}
+
+function renderUserEvent(event) {
+    const userEvents = document.querySelector('#users-events')
+
+    const card = document.createElement('div')
+    card.id = 'cart-card'
+    card.className = 'card'
+    userEvents.appendChild(card)
+
+    const cardName = document.createElement('h5')
+    cardName.textContent = event.name
+    card.appendChild(cardName)
+
+    const deleteBtn = document.createElement('button')
+    deleteBtn.textContent = 'Delete'
+    card.appendChild(deleteBtn)
+
+    deleteBtn.addEventListener('click', () => removeExistingEvent(event))
+}
+
+function removeExistingEvent(ourEvent) {
+    let byeEvent = event.target.parentElement
+    byeEvent.parentElement.removeChild(byeEvent)
+    let id = ourEvent.id
+
+    deleteEvent(id)
 }
