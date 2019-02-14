@@ -16,6 +16,8 @@ function getEvents() {
   return fetch(`${EVENT_URL}`).then(res => res.json())
 }
 
+
+
 function renderAllEvents() {
     getEvents().then(function(data){
         // data._embedded.events.forEach(renderEvent)
@@ -155,7 +157,6 @@ function changeCart(ourEvent) {
 }
 
 const updateUserEvents = (eventParams)  => {
-    console.log(eventParams)
     return fetch(`${USER_URL}/events`, {
         method: 'POST',
         headers: {
