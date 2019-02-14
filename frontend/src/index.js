@@ -4,7 +4,7 @@ const API_KEY = 'IKgwsAelLVBNG87AByQ0OVTLmgysLNAo'
 let state = 'GA'
 const EVENT_URL = `https://app.ticketmaster.com/discovery/v2/events.json?stateCode=${state}&apikey=${API_KEY}`
 
-const USER_URL = 'http://localhost:3000'
+const LOCAL_URL = 'http://localhost:3000'
 
 function setupPage() {
     renderAllEvents()
@@ -146,47 +146,58 @@ function changeCart(ourEvent) {
     let price = parseInt(event.target.parentElement.querySelector('#price').textContent)
     let city = event.target.parentElement.querySelector('#city').textContent
     let venue = event.target.parentElement.querySelector('#venue').textContent
-    let id = 1
+    let user_id = 1
 
-    // let eventParams = { name: name, url: url, date: date, time: time, price: price, city: city, venue: venue, user_id: user_id }
+    let eventParams = { name: name, url: url, date: date, time: time, price: price, city: city, venue: venue, user_id: user_id }
     // console.log(eventParams)
 
-    updateUserEvents(name, url, date, time, price, city, venue, id)
+    updateUserEvents(eventParams)
 
     deleteBtn.addEventListener('click', () => removeEvent(ourEvent))
 }
 
-const updateUserEvents = (name, url, date, time, price, city, venue, id)  => {
+const updateUserEvents = (eventParams)  => {
 
-    return fetch(`${USER_URL}/events`, {
+    return fetch(`${LOCAL_URL}/events`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            name: name,
-            url: url,
-            date: date,
-            time: time,
-            price: price,
-            city: city,
-            venue: venue,
-            user_id: id
-        })
-    }).then(res => res.json()).then(console.log)
+        body: JSON.stringify(eventParams)
+    }).then(res => res.json()).then(res => {
+        /* After you get the event id, add it to the dataset of the event box that's in the user's cart.
+        Example: eventBox.dataset.id = event_id
+        This allows you to get this id later, so it can be used in
+        your delete function (and corresponding rails route!) */
+        let event_id = res.id
+        console.log(res)
+        let cartCard = document.querySelector('#cart-card')
+        cartCard.dataset.id = event_id
+    })
 }
 
 // remove event from user - HTML side
 function removeEvent(ourEvent) {
     let byeEvent = event.target.parentElement
     byeEvent.parentElement.removeChild(byeEvent)
-    let id = ourEvent.id
+    let id = parseInt(event.target.parentElement.dataset.id)
+
+    deleteEvent(id)
 }
 
+function deleteEvent(id) {
+    return fetch(`${LOCAL_URL}/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application-json'
+        }
+    })
+}
 
 // USERS
 function getUsers() {
-    return fetch(`${USER_URL}/users`).then(res => res.json())
+    return fetch(`${LOCAL_URL}/users`).then(res => res.json())
 }
 
 function renderAllUsers() {

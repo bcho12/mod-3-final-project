@@ -61,20 +61,26 @@ body, html {
 #cart-card.card {
 	height: 100%;
 	text-align: center;
-	left: 10px
+	left: 10px;
+	background-color: rgba(245, 245, 245, 1);
+	opacity: .9;
 }
 
 .card {
-	height: 550px;
+	height: 545px;
 	width: 200px;
 	overflow: auto;
 	float: left;
 	margin: 20px;
+
+  	background-color: rgba(245, 245, 245, 1);
+  	opacity: .9;
 }
 
 div.card {
 	color: black;
 }
+
 
 
 #all-events, #profile-title, #users-events, #events-title, .user-profile {
