@@ -37,11 +37,17 @@ body, html {
 }
 
 #right-container {
-	background-color: #fedcd2;
+	/* background-color: #fedcd2; */
+	color: white;
+	background-image: url("https://i2.wp.com/neutrondev.com/wp-content/uploads/2016/03/universe-stars-background-wallpaper-3.jpg?ssl=1");
+
 }
+
 
 #left-container {
 	background-color: #caebf2;
+	color: white;
+	background-image: url("https://i2.wp.com/neutrondev.com/wp-content/uploads/2016/03/universe-stars-background-wallpaper-3.jpg?ssl=1");
 }
 
 #all-events {
@@ -53,7 +59,7 @@ body, html {
 }
 
 #cart-card.card {
-	height: 100px;
+	height: 100%;
 	text-align: center;
 	left: 10px
 }
@@ -64,6 +70,10 @@ body, html {
 	overflow: auto;
 	float: left;
 	margin: 20px;
+}
+
+div.card {
+	color: black;
 }
 
 
