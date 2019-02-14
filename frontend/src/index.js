@@ -139,31 +139,41 @@ function changeCart(ourEvent) {
     card.appendChild(deleteBtn)
 
 
-
     let name = event.target.parentElement.querySelector('#name').textContent
     let url = event.target.parentElement.parentElement.querySelector('img').src
     let date = event.target.parentElement.querySelector('#date').textContent
     let time = event.target.parentElement.querySelector('#time').textContent
-    let price = event.target.parentElement.querySelector('#price').textContent
+    let price = parseInt(event.target.parentElement.querySelector('#price').textContent)
     let city = event.target.parentElement.querySelector('#city').textContent
     let venue = event.target.parentElement.querySelector('#venue').textContent
-    let user_id = 5
+    let id = 1
 
-    let eventParams = { name: name, url: url, date: date, time: time, price: price, city: city, venue: venue, user_id: user_id }
+    // let eventParams = { name: name, url: url, date: date, time: time, price: price, city: city, venue: venue, user_id: user_id }
+    // console.log(eventParams)
 
-    updateUserEvents(eventParams).then(data => console.log(data))
+    updateUserEvents(name, url, date, time, price, city, venue, id)
 
     deleteBtn.addEventListener('click', () => removeEvent(ourEvent))
 }
 
-const updateUserEvents = (eventParams)  => {
+const updateUserEvents = (name, url, date, time, price, city, venue, id)  => {
+
     return fetch(`${USER_URL}/events`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(eventParams)
-    }).then(res => res.json())
+        body: JSON.stringify({
+            name: name,
+            url: url,
+            date: date,
+            time: time,
+            price: price,
+            city: city,
+            venue: venue,
+            user_id: id
+        })
+    }).then(res => res.json()).then(console.log)
 }
 
 // remove event from user - HTML side
