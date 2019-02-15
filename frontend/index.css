@@ -40,7 +40,6 @@ body, html {
 	/* background-color: #fedcd2; */
 	color: white;
 	background-image: url("https://i2.wp.com/neutrondev.com/wp-content/uploads/2016/03/universe-stars-background-wallpaper-3.jpg?ssl=1");
-
 }
 
 
@@ -63,7 +62,7 @@ body, html {
 	text-align: center;
 	left: 10px;
 	background-color: rgba(245, 245, 245, 1);
-	opacity: .9;
+	opacity: .8;
 }
 
 .card {
@@ -74,15 +73,19 @@ body, html {
 	margin: 20px;
 
   	background-color: rgba(245, 245, 245, 1);
-  	opacity: .9;
+  	opacity: .8;
 }
 
 div.card {
 	color: black;
 }
 
+#users-events {
+	justify-content: center;
+}
 
-#all-events, #profile-title, #users-events, #events-title, .user-profile {
+
+#all-events, #profile-title, #users-events, #events-title, .user-profile{
 	text-align: center;
 }
 
@@ -127,7 +130,7 @@ div.card {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd}
+.dropdown-content a:hover {background-color: darkblue}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}

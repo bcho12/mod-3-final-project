@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', setupPage)
 
 const API_KEY = 'IKgwsAelLVBNG87AByQ0OVTLmgysLNAo'
-let state = 'GA'
+let state = 'CA'
 const EVENT_URL = `https://app.ticketmaster.com/discovery/v2/events.json?stateCode=${state}&apikey=${API_KEY}`
 
 const LOCAL_URL = 'http://localhost:3000'
@@ -12,43 +12,14 @@ function setupPage() {
     renderAllUserEvents()
 }
 
-
-function renderDropdown() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-function getVenueNames(venueNames) {
-    let dropdown = document.querySelector('.dropdown-content')
-
-    let uniqueNames = venueNames.filter((v, i, a) => a.indexOf(v) === i)
-    uniqueNames.forEach(function(name){
-        let venueName = document.createElement('a')
-        venueName.textContent = name
-        dropdown.appendChild(venueName)
-    })
-}
-
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-
-// EVENTS
+///////////// EVENTS /////////////
 function getEvents() {
   return fetch(`${EVENT_URL}`).then(res => res.json())
 }
 
 function renderAllEvents() {
+    const cardContainer = document.querySelector('#card-container')
+
     let venueNames = []
     getEvents().then(function(data){
         data._embedded.events.forEach((event) => {
@@ -60,9 +31,9 @@ function renderAllEvents() {
 }
 
 function renderEvent(event) {
+
     // parent element of all cards
     const cardContainer = document.querySelector('#card-container')
-
     // create card
     const card = document.createElement('div')
     card.className = 'card'
@@ -206,7 +177,52 @@ function deleteEvent(id) {
     })
 }
 
-// USERS
+///////////// DROPDOWN /////////////
+function renderDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function getVenueNames(venueNames) {
+    let dropdown = document.querySelector('.dropdown-content')
+
+    let uniqueNames = venueNames.filter((v, i, a) => a.indexOf(v) === i)
+    uniqueNames.forEach(function(name){
+        let venueName = document.createElement('a')
+        venueName.textContent = name
+        dropdown.appendChild(venueName)
+
+        venueName.addEventListener('click', () => filterEvents(name))
+    })
+}
+
+function filterEvents(name) {
+    const cardContainer = document.querySelector('#card-container')
+    cardContainer.innerHTML = ""
+    getEvents().then((events) => {
+        let filteredEvents = events._embedded.events.filter(function(event){
+            return event._embedded.venues[0].name === name
+        })
+        filteredEvents.forEach(renderEvent)
+    })
+}
+
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+///////////// USERS /////////////
 function getUsers() {
     return fetch(`${LOCAL_URL}/users`).then(res => res.json())
 }
@@ -243,7 +259,7 @@ function renderUser(user) {
 
 
 
-// USER EVENTS
+///////////// USER EVENTS /////////////
 function getUserEvents() {
     return fetch(`${LOCAL_URL}/events`).then(res => res.json())
 }
