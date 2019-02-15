@@ -10,8 +10,8 @@ body, html {
 
 
 .hero-image {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.pexels.com/photos/196652/pexels-photo-196652.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
-  height: 75%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.pexels.com/photos/761543/pexels-photo-761543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -40,14 +40,14 @@ body, html {
 #right-container {
 	/* background-color: #fedcd2; */
 	color: white;
-	background-image: url("https://i2.wp.com/neutrondev.com/wp-content/uploads/2016/03/universe-stars-background-wallpaper-3.jpg?ssl=1");
+	background-image: url("https://thumbs.gfycat.com/RingedSpicyKodiakbear-size_restricted.gif");
 }
 
 
 #left-container {
 	background-color: #caebf2;
 	color: white;
-	background-image: url("https://i2.wp.com/neutrondev.com/wp-content/uploads/2016/03/universe-stars-background-wallpaper-3.jpg?ssl=1");
+	background-image: url("https://thumbs.gfycat.com/RingedSpicyKodiakbear-size_restricted.gif");
 }
 
 
@@ -86,7 +86,7 @@ div.card {
 }
 
 
-#all-events, #events-title, #profile-title, .user-profile {
+#all-events, #events-title, #profile-title, .user-profile, .card-body {
 	text-align: center;
 }
 

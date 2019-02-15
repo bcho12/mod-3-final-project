@@ -144,7 +144,7 @@ function changeCart(ourEvent) {
     let price = parseInt(event.target.parentElement.querySelector('#price').textContent)
     let city = event.target.parentElement.querySelector('#city').textContent
     let venue = event.target.parentElement.querySelector('#venue').textContent
-    let user_id = 1
+    let user_id = 2
 
     let eventParams = { name: name, url: url, date: date, time: time, price: price, city: city, venue: venue, user_id: user_id }
     // console.log(eventParams)
@@ -155,7 +155,6 @@ function changeCart(ourEvent) {
 }
 
 const updateUserEvents = (eventParams)  => {
-
     return fetch(`${LOCAL_URL}/events`, {
         method: 'POST',
         headers: {
