@@ -1,5 +1,6 @@
 body, html {
 	height: 100%;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .containers {
@@ -27,9 +28,9 @@ body, html {
 }
 
 .hero-text h1 {
+	font-family: 'Monoton', cursive;
 	font-size: 50px;
 	letter-spacing: 2px;
-	font-weight: bold;
 }
 
 .hero-text p {
@@ -49,9 +50,7 @@ body, html {
 	background-image: url("https://i2.wp.com/neutrondev.com/wp-content/uploads/2016/03/universe-stars-background-wallpaper-3.jpg?ssl=1");
 }
 
-#all-events {
-	font-size: 50px;
-}
+
 
 .user-image {
 	height: 80px;
@@ -59,8 +58,8 @@ body, html {
 
 #cart-card.card {
 	height: 100%;
+	width: 80%;
 	text-align: center;
-	left: 10px;
 	background-color: rgba(245, 245, 245, 1);
 	opacity: .8;
 }
@@ -71,7 +70,6 @@ body, html {
 	overflow: auto;
 	float: left;
 	margin: 20px;
-
   	background-color: rgba(245, 245, 245, 1);
   	opacity: .8;
 }
@@ -81,14 +79,16 @@ div.card {
 }
 
 #users-events {
+	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 }
 
 
-#all-events, #profile-title, #users-events, #events-title, .user-profile{
+#all-events, #events-title, #profile-title, .user-profile {
 	text-align: center;
 }
-
 
 /* Dropdown Button */
 .dropbtn {

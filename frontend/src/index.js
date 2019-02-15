@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', setupPage)
 
 const API_KEY = 'IKgwsAelLVBNG87AByQ0OVTLmgysLNAo'
-let state = 'CA'
+let state = 'GA'
 const EVENT_URL = `https://app.ticketmaster.com/discovery/v2/events.json?stateCode=${state}&apikey=${API_KEY}`
 
 const LOCAL_URL = 'http://localhost:3000'
@@ -28,6 +28,12 @@ function renderAllEvents() {
         })
         getVenueNames(venueNames)
     })
+}
+
+
+function reformatDate(dateStr) {
+  dArr = dateStr.split("-");
+  return dArr[1]+ "/" +dArr[2]+ "/" +dArr[0].substring(2);
 }
 
 function renderEvent(event) {
@@ -78,7 +84,7 @@ function renderEvent(event) {
     cardBody.appendChild(city)
 
     const date = document.createElement('p')
-    date.textContent = event.dates.start.localDate
+    date.textContent = reformatDate(event.dates.start.localDate)
     date.className = 'card-text'
     date.id = 'date'
     cardBody.appendChild(date)
@@ -91,7 +97,7 @@ function renderEvent(event) {
 
     const price = document.createElement('p')
     if ("priceRanges" in event) {
-        price.textContent =  (event.priceRanges[0].max + event.priceRanges[0].min) / 2
+        price.textContent =  `$${((event.priceRanges[0].max + event.priceRanges[0].min)/ 2).toFixed(2)}`
     }
     price.id = 'price'
     cardBody.appendChild(price)
@@ -117,8 +123,17 @@ function changeCart(ourEvent) {
     cardName.textContent = ourEvent.name
     card.appendChild(cardName)
 
+    const cardVenue = document.createElement('p')
+    cardVenue.textContent = ourEvent._embedded.venues[0].name
+    card.appendChild(cardVenue)
+
+    const cardDate = document.createElement('p')
+    cardDate.textContent = reformatDate(ourEvent.dates.start.localDate)
+    card.appendChild(cardDate)
+
     const deleteBtn = document.createElement('button')
     deleteBtn.textContent = 'Delete'
+    deleteBtn.className = 'btn btn-primary'
     card.appendChild(deleteBtn)
 
 
@@ -206,7 +221,6 @@ function filterEvents(name) {
     })
 }
 
-
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -233,7 +247,6 @@ function renderAllUsers() {
     })
 }
 
-//
 function renderUser(user) {
     const userProfile = document.querySelector('#profile')
     userProfile.className = 'user-profile'
@@ -255,7 +268,6 @@ function renderUser(user) {
     city.textContent = "City: " + user.city
     userProfile.appendChild(city)
 }
-
 
 
 
@@ -282,13 +294,23 @@ function renderUserEvent(event) {
     cardName.textContent = event.name
     card.appendChild(cardName)
 
+    const cardVenue = document.createElement('p')
+    cardVenue.textContent = event.venue
+    card.appendChild(cardVenue)
+
+    const cardDate = document.createElement('p')
+    cardDate.textContent = event.date
+    card.appendChild(cardDate)
+
     const deleteBtn = document.createElement('button')
     deleteBtn.textContent = 'Delete'
+    deleteBtn.className = 'btn btn-primary'
     card.appendChild(deleteBtn)
 
     deleteBtn.addEventListener('click', () => removeExistingEvent(event))
 }
 
+// Deleting user event from cart
 function removeExistingEvent(ourEvent) {
     let byeEvent = event.target.parentElement
     byeEvent.parentElement.removeChild(byeEvent)
